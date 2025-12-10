@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo de Adivinhar Filmes</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .palavra { font-size: 2em; letter-spacing: 0.2em; margin-bottom: 20px; }
+        .mensagem { margin: 20px 0; font-weight: bold; }
+        .letras-erradas { color: red; }
+        input[type="text"] { width: 30px; font-size: 1em; text-align: center; }
+        button { font-size: 1em; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>🎬 Adivinhe o Filme!</h1>
+
+    <div class="palavra">{{ palavra }}</div>
+    
+    <form method="POST">
+        {% if not jogo_final %}
+        <input type="text" name="letra" maxlength="1" required autofocus>
+        <button type="submit">Chutar</button>
+        {% else %}
+        <a href="{{ url_for('reiniciar') }}"><button type="button">Reiniciar Jogo</button></a>
+        {% endif %}
+    </form>
+
+    <div class="mensagem">{{ mensagem }}</div>
+
+    <div class="letras-erradas">
+        Erros ({{ letras_erradas|length }}): {{ letras_erradas|join(', ') }}
+    </div>
+
+    <div>
+        Tentativas restantes: {{ tentativas }}
+    </div>
+</body>
+</html>
